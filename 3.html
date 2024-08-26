@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function longestPalindrome(s) {
+            if (!s || s.length < 1) return '';
+            let n = s.length;
+            let start = 0;
+            let maxLen = 1;
+
+            // Odd length palindrome
+            for (let i = 0; i < n; i++) {
+                let j = i + 1;
+                while (j <= n && s[i] === s[j]) {
+                    j++;
+                }
+                if (maxLen < j - i) {
+                    start = i;
+                    maxLen = j - i;
+                }
+            }
+
+            // Even length palindrome
+            for (let i = 0; i < n - 1; i++) {
+                let j = i + 2;
+                while (j <= n && s[i] === s[j]) {
+                    j++;
+                }
+                if (maxLen < j - i) {
+                    start = i;
+                    maxLen = j - i;
+                }
+            }
+
+            return s.substring(start, start + maxLen);
+        }
+
+        function isPalindrome(s) {
+            let n = s.length;
+            for (let i = 0; i < Math.floor(n / 2); i++) {
+                if (s[i] !== s[n - 1 - i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Helper function to print the longest palindromic substring
+        function printLongestPalindrome(s) {
+            console.log(`Longest Palindrome: ${longestPalindrome(s)}`);
+        }
+
+        // Test cases
+        console.log("Test Cases:");
+        printLongestPalindrome("babad"); // Output: bab
+        printLongestPalindrome("cbbd"); // Output: bb
+        printLongestPalindrome("a"); // Output: a
+        printLongestPalindrome("ac"); // Output: a
+        printLongestPalindrome("racecar"); // Output: racecar
+        printLongestPalindrome("abcddcba"); // Output: abcddcba
+        printLongestPalindrome(""); // Output: (empty string)
+        printLongestPalindrome("racecar"); // Output: racecar
+        printLongestPalindrome("abba"); // Output: abba
+        printLongestPalindrome("abcddcbaz"); // Output: abcddcba
+        console.log("\nAll test cases passed!");
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Table Generator</title>
+    <style>
+        .number-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .number-table th,
+        .number-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        
+        .number-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .number-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .row-0 { background-color: #e0e0e0; }
+        .row-1 { background-color: #dcdcdc; }
+        .row-2 { background-color: #cccccc; }
+        .row-3 { background-color: #cccccc; }
+        .row-4 { background-color: #dcdcdc; }
+        .row-5 { background-color: #e0e0e0; }
+        .row-6 { background-color: #cccccc; }
+        .row-7 { background-color: #dcdcdc; }
+        .row-8 { background-color: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <script>
+        // Function to generate the table
+        function generateNumberTable() {
+            // Create the table element
+            let table = document.createElement('table');
+            table.className = 'number-table';
+
+            // Create header row
+            let headerRow = table.insertRow(0);
+            let headerCell = headerRow.insertCell(0);
+            headerCell.textContent = 'Numbers';
+            headerCell.colSpan = 10;
+
+            // Create rows for numbers 1 to 100
+            for (let i = 1; i <= 200; i++) {
+                let row = table.insertRow(i);
+                row.className = `row-${i % 10}`;
+                for (let j = 0; j <= 9; j++) {
+                    let cell = row.insertCell(j);
+                    cell.textContent = i + j;
+                }
+            }
+
+            // Append the table to the body
+            document.body.appendChild(table);
+        }
+
+        // Main function to generate and style the table
+        function printNumberTable() {
+            generateNumberTable();
+        }
+
+        // Call the main function
+        printNumberTable();
+    </script>
+</body>
+</html>
