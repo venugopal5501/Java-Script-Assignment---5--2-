@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #list {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: 40px 40px 40px 40px 40px 40px;
+    }
+
+    .even {
+        background-color: green;
+    }
+
+    .odd {
+        background-color: yellow;
+    }
+
+    .prime {
+        background-color: red;
+    }
+</style>
+
+<body>
+    Enter Number: <input type="number" id="prime">
+    <button onclick="table()">Click</button><br><br>
+    <div id="list"></div>
+    <script>
+        function prime(n) {
+            if (n === 0) {
+                return false;
+            }
+
+            if (n === 1) {
+                return false;
+            } else if (n === 2) {
+                return true;
+            } else {
+                for (var x = 2; x < n; x++) {
+                    if (n % x === 0) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        function table() {
+            var a = document.getElementById("prime").value;
+            for (var i = 0; i <= a; i++) {
+                var dom = document.createElement("div");
+                dom.innerText = i;
+                document.getElementById("list").appendChild(dom);
+                if (i % 2 === 0) {
+                    dom.classList.add('even');
+                }
+                if (i % 2 !== 0) {
+                    dom.classList.add('odd');
+                }
+                if (prime(i)) {
+                    dom.classList.add('prime');
+
+                }
+            }
+
+        }
+    </script>
+</body>
+
+</html>
