@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Enter Word Separated by comma <input type="text" id="1">
+    <button onclick="long()">Click</button>
+    <script>
+        const words = [
+            "level",     // Palindrome
+            "radar",     // Palindrome
+            "civic",     // Palindrome
+            "hello",     // Not a palindrome
+            "madam",     // Palindrome
+            "world",     // Not a palindrome
+            "rotor",     // Palindrome
+            "javascript",
+            "malayalam" // Not a palindrome
+        ];
+
+        const sv = [];
+
+        function palindrome(n) {
+            // Split the string into characters, reverse it, and join it back into a string
+            var reversed = n.split("").reverse().join("");
+            // Compare the original string with the reversed one
+            return n === reversed;
+        }
+
+        function long() {
+            var words = document.getElementById("1").value.split(" ");
+            for (var i = 0; i < words.length; i++) {
+                if (palindrome(words[i])) {
+                    sv.push(words[i]);
+                }
+
+            }
+            var a = sv[0];
+            var b = a.length;
+            for (var i = 0; i < sv.length; i++) {
+                if (b < sv[i].length) {
+                    b = sv[i].length;
+                    a = sv[i];
+
+
+                    // sv[i]=b;
+                    // a=a[i];
+                    // b=a[i].length;
+                }
+
+            }
+            document.write(a);
+        }
+
+    </script>
+</body>
+
+</html>
