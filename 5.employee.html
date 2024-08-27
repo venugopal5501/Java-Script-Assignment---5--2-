@@ -5,22 +5,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table td,
+        table th {
+            border: 1px solid black;
+        }
+
+        table td+td {
+            border-left: 2px solid black;
+        }
+
+        table th+th {
+            border-left: 2px solid black;
+        }
+    </style>
 </head>
 
 <body>
-    <form onsubmit="return validation()">
+    <form id="onkeyup" onsubmit="return validation(event)" method="POST">
         EmpCode <input type="text" id="1"><br><br>
         EmpName <input type="text" id="2"><br><br>
         E-Mail </E-Mail><input type="text" id="3"><br><br>
-        Date of Join <input type="date" id="4"><br><br>
+        Date of Join <input type="date" id="4" oninput="year()">
         <p id="10"></p>
-        Basic pay <input type="text" id="5"><br><br>
+        Basic pay <input type="number" id="basic" oninput="calculateAll()"><br><br>
+        DA <input type="number" id="d" readonly oninput="calculateAll()"><br><br>
+        HRA <input type="number" id="h" readonly><br><br>
+        TA <input type="number" id="T" readonly><br><br>
+        FA <input type="number" id="F" readonly><br><br>
+        Gross Pay <input type="number" id="g" readonly onkeyup="calculateAll()"><br><br>
+        PF <input type="number" id="pf" readonly><br><br>
+        INSURANCE <input type="number" id="INS" readonly><br><br>
+        DEDUCTIONS <input type="number" id="gead" readonly><br><br>
+        NET PAY <input type="number" id="net" readonly onkeyup="calculateAll()"><br><br>
         <input type="submit" value="Submit"><br><br>
 
+
     </form>
+    <table id="mytable">
+        <thead>
+            <tr>
+                <th>EmpCode</th>
+                <th>EmpName</th>
+                <th>E-Mail</th>
+                <th>Date of Join </th>
+                <th>Basic pay</th>
+                <th>DA</th>
+                <th>HRA</th>
+                <th>TA</th>
+                <th>FA</th>
+                <th>Gross Pay</th>
+                <th>PF</th>
+                <th>INSURANCE</th>
+                <th>DEDUCTIONS</th>
+                <th>NET PAY</th>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
 </body>
 <script>
-    function validation() {
+    function calculateAll() {
+        da();
+        HRA();
+        ta();
+        fa();
+        gp();
+        pf();
+        ins();
+        deductions();
+        net();
+    }
+
+    function ins() {
+        var bp = Number(document.getElementById("basic").value);
+        var da = Number(document.getElementById("d").value);
+        var total = bp + da;
+        if (total <= 15000) {
+            tot = total * 0.03;
+            document.getElementById("INS").value = tot;
+        }
+        else {
+            tot1 = total * 0.05;
+            document.getElementById("INS").value = tot1;
+
+        }
+
+    }
+
+    function pf() {
+        var bp = Number(document.getElementById("basic").value);
+        var da = Number(document.getElementById("d").value);
+        var total = bp + da;
+        if (total <= 15000) {
+            tot = total * 0.083;
+            document.getElementById("pf").value = tot;
+        }
+        else {
+            tot1 = total * 0.12;
+            document.getElementById("pf").value = tot1;
+
+        }
+
+    }
+    function da() {
+        var pay = document.getElementById("basic").value;
+        var da = pay * 0.31;
+        document.getElementById("d").value = da;
+    }
+    function net() {
+        var gp = Number(document.getElementById("g").value);
+        var dd = Number(document.getElementById("gead").value);
+        var netpay = gp - dd;
+        document.getElementById("net").value = netpay;
+    }
+    function HRA() {
+        var pay = document.getElementById("basic").value;
+        var da = pay * 0.10;
+        document.getElementById("h").value = da;
+    }
+    function ta() {
+        var pay = document.getElementById("basic").value;
+        var da = pay * 0.05;
+        document.getElementById("T").value = da;
+    }
+    function fa() {
+        var pay = document.getElementById("basic").value;
+        var da = pay * 0.03;
+        document.getElementById("F").value = da;
+    }
+    function gp() {
+        var pay = Number(document.getElementById("basic").value);
+        var da = Number(document.getElementById("d").value);
+        var hra = Number(document.getElementById("h").value);
+        var ta = Number(document.getElementById("T").value);
+        var fa = Number(document.getElementById("F").value);
+        var gp = pay + da + hra + ta + fa;
+        document.getElementById("g").value = gp;
+    }
+    function deductions() {
+        var ded = Number(document.getElementById("pf").value);
+        var ins = Number(document.getElementById("INS").value);
+        var deduction = ded + ins;
+        document.getElementById("gead").value = deduction;
+    }
+
+    function validation(event) {
+        event.preventDefault();
         var a = document.getElementById("1").value;
         var ap = /^dls\d{4}$/;
         if (!ap.test(a)) {
@@ -47,21 +183,82 @@
 
         }
     }
-    const start=new Date(document.getElementById("4").value);
-    const end=new Date();
-    date(start,end);
-    function date(start,end){
-        const years=end.getFullYear()-start.getFullYear();
-        const months=end.getMonth()-start.getMonth();
-        const days=end.getDate()-start.getDate();
-        if(months<0||(months===0 && days <0)){
-            return years-1;
-
-        }
-        return years;
-
-
+    function year() {
+        var a = document.getElementById("4").value;
+        const date = new Date(a);
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const date1 = new Date();
+        const year1 = date1.getFullYear();
+        const month1 = date1.getMonth();
+        const diff = year1 - year;
+        const diff1 = month1 - month;
+        document.getElementById("10").textContent = `${diff} years and ${Math.abs(diff1)} months`;
     }
+
+    document.getElementById("onkeyup").addEventListener("submit", function (event) {
+        event.preventDefault();
+        var EmpCode = document.getElementById("1").value;
+        var EmpName = document.getElementById("2").value;
+        var EMail = document.getElementById("3").value;
+        var DateofJoin = document.getElementById("4").value;
+        var Basicpay = document.getElementById("basic").value;
+        var DA = document.getElementById("d").value;
+        var HRA = document.getElementById("h").value;
+        var TA = document.getElementById("T").value;
+        var FA = document.getElementById("F").value;
+        var GrossPay = document.getElementById("g").value;
+        var PF = document.getElementById("pf").value;
+        var INSURANCE = document.getElementById("INS").value;
+        var DEDUCTIONS = document.getElementById("gead").value;
+        var NETPAY = document.getElementById("net").value;
+
+        var table = document.getElementById("mytable");
+        var row = table.insertRow(-1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        var cell7 = row.insertCell(6);
+        var cell8 = row.insertCell(7);
+        var cell9 = row.insertCell(8);
+        var cell10 = row.insertCell(9);
+        var cell11 = row.insertCell(10);
+        var cell12 = row.insertCell(11);
+        var cell13 = row.insertCell(12);
+        var cell14 = row.insertCell(13);
+
+
+        cell1.textContent = EmpCode;
+        cell2.textContent = EmpName;
+        cell3.textContent = EMail;
+        cell4.textContent = DateofJoin;
+        cell5.textContent = Basicpay;
+        cell6.textContent = DA;
+        cell7.textContent = HRA;
+        cell8.textContent = TA;
+        cell9.textContent = FA;
+        cell10.textContent = GrossPay;
+        cell11.textContent = PF;
+        cell12.textContent = INSURANCE;
+        cell13.textContent = DEDUCTIONS;
+        cell14.textContent = NETPAY;
+
+
+
+    });
+
+
+
+
+
+
+
+
+
+
 </script>
 
 </html>
