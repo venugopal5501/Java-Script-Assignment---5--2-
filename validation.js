@@ -11,7 +11,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 function validation() {
+
+    document.getElementById("e").innerHTML = "";
+    document.getElementById("u").innerHTML = "";
+    document.getElementById("pa").innerHTML = "";
+    document.getElementById("cp").innerHTML = "";
+
     var email = document.getElementById("1").value;
     var valid = /^[a-z0-9.]+@[a-z]+\.[a-z]{2,}$/;
     if (email == "") {
@@ -56,15 +63,23 @@ function validation() {
         document.getElementById("cp").innerHTML = "Passwords do not match";
         return false;
     }
+    return true;
 
 }
 
 function map(){
     var email=document.getElementById("1").value;
     var user=document.getElementById("2").value;
-    var pass=document.getElementById("3").value;
+    var pass=document.getElementById("venugopal").value;
     var confirm=document.getElementById("4").value;
-    document.getElementById("print").innerHTML=email;
+    document.getElementById("print").innerHTML=`
+        <p>Email: ${email}</p>
+        <p>Username: ${user}</p>
+        <p>Password: ${pass}</p>
+        <p>Confirm Password: ${confirm}</p>
+    `;
+    
+    
 
 }
 
