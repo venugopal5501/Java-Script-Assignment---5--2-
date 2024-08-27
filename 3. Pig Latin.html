@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Enter Words separated by comma: <input type="text" id="1">
+    <button onclick="ok()">Ok</button>
+    <script>
+        function ok(){
+        var a = document.getElementById("1").value.split(" ");
+        for(var i=0;i<a.length;i++){
+            var b=a[i].slice(1,a.length);
+            document.write(b+a[i].charAt(0)+"ay"+"<br>");
+        }
+    }
+
+
+        // for(var i=0;i<a.length;i++){
+            
+        // }
+
+        // // Convert string to array
+        // var arr = a.split('');
+
+        // // Modify the array using splice
+        // arr.splice(a.length,a,'ay'); // Remove 2 elements starting at index 2 and insert 'a' and 'y'
+
+        // // Convert array back to string
+        // var modifiedString = arr.join('');
+
+        // // Display the result
+        // document.write(modifiedString);
+
+        // // var res=a.replace("h","");
+        // // document.write(res);
+    </script>
+</body>
+
+</html>
