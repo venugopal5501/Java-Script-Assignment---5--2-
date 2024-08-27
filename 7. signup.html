@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #e,
+        #u,
+        #pa,
+        #cp {
+            margin-left: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="signupForm" onsubmit="return validation()" method="post">
+        <u style="color: red;">
+            <p id="e" style="color: red;"></p>
+        </u>
+        Email: <input type="text" id="1" style="margin-left: 100px;"><br><br>
+        <u style="color: red;">
+            <p id="u" style="color: red;"></p>
+        </u>
+        Username: <input type="text" id="2" style="margin-left: 75px;"><br><br>
+        <u style="color: red;">
+            <p id="pa" style="color: red;"></p>
+        </u>
+        Password: <input type="password" id="venugopal" style="margin-left: 75px;"><br><br>
+        <u style="color: red;">
+            <p id="cp" style="color: red;"></p>
+        </u>
+        Confirm Password: <input type="password" id="4" style="margin-left: 18px;"><br><br>
+        <button>Sign Up</button>
+        <button>Reset</button>
+        <div id="print">
+        </div>
+    </form>
+</body>
+<script src="validation.js"></script>
+
+
+</html>
