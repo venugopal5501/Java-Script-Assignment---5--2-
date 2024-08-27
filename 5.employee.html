@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form onsubmit="return validation()">
+        EmpCode <input type="text" id="1"><br><br>
+        EmpName <input type="text" id="2"><br><br>
+        E-Mail </E-Mail><input type="text" id="3"><br><br>
+        Date of Join <input type="date" id="4"><br><br>
+        <p id="10"></p>
+        Basic pay <input type="text" id="5"><br><br>
+        <input type="submit" value="Submit"><br><br>
+
+    </form>
+</body>
+<script>
+    function validation() {
+        var a = document.getElementById("1").value;
+        var ap = /^dls\d{4}$/;
+        if (!ap.test(a)) {
+            alert("Please fill valid employee code");
+            return false;
+        }
+        if (a == "") {
+            alert("Please fill employee id");
+            return false;
+
+        }
+        var b = document.getElementById("3").value;
+        var c = /^[a-z0-9.]+@[a-z]+\.[a-z]{2,}$/;
+        if (!c.test(b)) {
+            alert("Please enter valid email");
+        }
+        else if (b == "") {
+            alert("Please enter email id");
+
+        }
+        var d = document.getElementById("2").value;
+        if (d == "") {
+            alert("Please fill name");
+
+        }
+    }
+    const start=new Date(document.getElementById("4").value);
+    const end=new Date();
+    date(start,end);
+    function date(start,end){
+        const years=end.getFullYear()-start.getFullYear();
+        const months=end.getMonth()-start.getMonth();
+        const days=end.getDate()-start.getDate();
+        if(months<0||(months===0 && days <0)){
+            return years-1;
+
+        }
+        return years;
+
+
+    }
+</script>
+
+</html>
