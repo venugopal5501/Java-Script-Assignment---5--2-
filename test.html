@@ -1,37 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Data Entry Form</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
 </head>
-
 <body>
-    <!-- Date <input type="date" id="1" oninput="year()">
-    <button onclick="year()">ok</button>
-    <p id="2"></p> -->
-    <script>
-        function validatePassword(password) {
-            // Regular expression pattern to match passwords with at least one number
-            const pattern = /^(?=.*[0-9]).*$/;
+    <h2>Data Entry Form</h2>
+    
+    <!-- Form -->
+    <form id="dataForm">
+        <label for="field1">Field 1:</label>
+        <input type="text" id="field1" required><br><br>
+        <label for="field2">Field 2:</label>
+        <input type="text" id="field2" required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    
+    <!-- Table to display data -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Field Information</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="dataRows"></tbody>
+    </table>
 
-            // Test the password against the pattern
-            return pattern.test(password);
+    <script>
+        // Function to add data to the table
+        function addDataToTable(data) {
+            const rows = document.querySelectorAll('#dataRows tr');
+            const newRow = document.createElement('tr');
+            
+            // Create cells for each field
+            data.forEach((field, index) => {
+                const cell = document.createElement('td');
+                cell.textContent = field.value;
+                newRow.appendChild(cell);
+            });
+
+            // Add action buttons
+            const editCell = document.createElement('td');
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = () => removeRow(index);
+            editCell.appendChild(removeButton);
+
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.onclick = () => editRow(index);
+            editCell.appendChild(editButton);
+
+            newRow.appendChild(editCell);
+            rows[rows.length - 1].insertAdjacentElement('afterEnd', newRow);
         }
 
-        // Test cases
-        console.log(validatePassword("abc123")); // true
-        console.log(validatePassword("abcdef")); // false
-        console.log(validatePassword("ABC123")); // true
-        console.log(validatePassword("ABCdef")); // false
-        console.log(validatePassword("123456")); // true
-        console.log(validatePassword("abcdefghij")); // false
+        // Function to remove a row from the table
+        function removeRow(index) {
+            const row = document.getElementById(`row${index}`);
+            row.remove();
+        }
 
+        // Function to edit a row in the table
+        function editRow(index) {
+            const row = document.getElementById(`row${index}`);
+            const fields = row.cells.slice(0, 2);
+            const inputFields = document.querySelectorAll('#dataForm input');
+            
+            fields.forEach((cell, i) => {
+                cell.textContent = inputFields[i].value;
+            });
+        }
 
+        // Event listener for form submission
+        document.getElementById('dataForm').addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Get values from form inputs
+            const formData = Array.from(document.querySelectorAll('#dataForm input')).map(input => ({
+                value: input.value,
+                element: input
+            }));
 
+            // Clear existing data
+            const rows = document.querySelectorAll('#dataRows tr');
+            rows.forEach(row => row.remove());
 
+            // Add new data to the table
+            addDataToTable(formData);
+            
+            // Reset form fields
+            formData.forEach(field => field.element.value = '');
+        });
     </script>
 </body>
-
 </html>

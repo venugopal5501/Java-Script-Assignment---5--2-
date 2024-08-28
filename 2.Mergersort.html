@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [38, 27, 43, 10];
+
+        var sorted = merge(arr);
+        function merge(a) {
+            if (a.length <= 1) {
+                return a;
+            }
+            else {
+                mid = Math.floor(a.length / 2);
+                var left = merge(a.slice(0, mid));
+                var right = merge(a.slice(mid));
+            }
+            return mergesort(left, right);
+
+        }
+
+        function mergesort(left, right) {
+            let sort = [];
+            while (left.length && right.length) {
+                if (left[0] < right[0]) {
+                    sort.push(left.shift());
+                }
+                else {
+                    sort.push(right.shift());
+                }
+
+
+            }
+            return [...sort, ...left, ...right];
+        }
+
+        document.write(sorted);
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
