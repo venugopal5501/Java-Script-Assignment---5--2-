@@ -12,25 +12,25 @@
     <button onclick="sort()">Submit</button>
     <p id="out"></p>
     <script>
-        function sort(){
-            var a=document.getElementById("in").value;
-            var b=a.split(",");
-            for(var i=0;i<b.length;i++){
-                var min=i;
-                for(j=i+1;j<b.length;j++){
-                    if(b[j]<b[min]){
-                        min=j;
+        function sort() {
+            var a = document.getElementById("in").value;
+            var b = a.split(",");
+            for (var i = 0; i < b.length; i++) {
+                var min = i;
+                for (j = i + 1; j < b.length; j++) {
+                    if (b[j] < b[min]) {
+                        min = j;
                     }
                 }
-                var temp=b[min];
-                b[min]=b[i];
-                b[i]=temp;
+                var temp = b[min];
+                b[min] = b[i];
+                b[i] = temp;
             }
-            document.getElementById("out").innerHTML=b;
+            document.getElementById("out").innerHTML = b;
         }
-        
 
-       
+
+
     </script>
 </body>
 
