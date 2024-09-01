@@ -14,22 +14,24 @@
     <script>
         function sort() {
             var a = document.getElementById("in").value;
-            var b = a.split(",");
+            var b = a.split(",").map(Number);
+
             for (var i = 0; i < b.length; i++) {
                 var min = i;
-                for (j = i + 1; j < b.length; j++) {
-                    if (b[j] < b[min]) {
-                        min = j;
+
+                for (var j = i + 1; j < b.length; j++) {
+                    if (b[min] > b[j]) {
+                        var temp = b[min];
+                        b[min] = b[j];
+                        b[j] = temp;
                     }
+
                 }
-                var temp = b[min];
-                b[min] = b[i];
-                b[i] = temp;
+
             }
             document.getElementById("out").innerHTML = b;
+
         }
-
-
 
     </script>
 </body>
